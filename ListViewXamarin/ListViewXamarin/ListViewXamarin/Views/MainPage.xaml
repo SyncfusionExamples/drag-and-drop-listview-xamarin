@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:local="clr-namespace:ListViewXamarin;assembly=ListViewXamarin"
+             xmlns:syncfusion="clr-namespace:Syncfusion.ListView.XForms;assembly=Syncfusion.SfListView.XForms"
+             x:Class="ListViewXamarin.MainPage">
+
+    <ContentPage.Behaviors>
+        <local:Behavior/>
+    </ContentPage.Behaviors>
+
+    <Grid RowSpacing="0">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+        <syncfusion:SfListView x:Name="ToDoListView" Grid.Column="0" 
+                               ItemSize="60"
+                               IsStickyHeader="True"
+                               ItemsSource="{Binding ToDoList}"
+                               DragStartMode="OnHold,OnDragIndicator"
+                               SelectionMode="None">
+            <syncfusion:SfListView.HeaderTemplate>
+                <DataTemplate>
+                    <Label Text="To do Items" TextColor="PaleVioletRed" BackgroundColor="WhiteSmoke" 
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </DataTemplate>
+            </syncfusion:SfListView.HeaderTemplate>
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HasShadow="True" Padding="0">
+                        <Frame.InputTransparent>
+                            <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="False"/>
+                        </Frame.InputTransparent>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="textLabel" Text="{Binding Name}" Grid.Column="0" FontSize="15" TextColor="#333333" VerticalOptions="Center" HorizontalOptions="Start" Margin="5,0,0,0" />
+
+                            <BoxView Grid.Column="0" Margin="5,3,0,0" BackgroundColor="#333333" HeightRequest="1" WidthRequest="{Binding Source={x:Reference textLabel}, Path=Width}"
+                       VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsDone}" />
+
+                            <syncfusion:DragIndicatorView Grid.Column="1" ListView="{x:Reference ToDoListView}" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Grid Padding="10, 20, 20, 20">
+                                    <Image Source="DragIndicator.png" VerticalOptions="Center" HorizontalOptions="Center" />
+                                </Grid>
+                            </syncfusion:DragIndicatorView>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+
+        <syncfusion:SfListView x:Name="WorkDoneListView" ItemSize="60" 
+                           Grid.Column="1" IsStickyHeader="True"
+                           ItemsSource="{Binding WorkDoneList}"
+                           DragStartMode="OnHold,OnDragIndicator"
+                           SelectionMode="None">
+            <syncfusion:SfListView.HeaderTemplate>
+                <DataTemplate>
+                    <Label Text="Completed works" TextColor="PaleVioletRed" BackgroundColor="WhiteSmoke" 
+                           HorizontalOptions="CenterAndExpand" VerticalOptions="CenterAndExpand"/>
+                </DataTemplate>
+            </syncfusion:SfListView.HeaderTemplate>
+            <syncfusion:SfListView.ItemTemplate>
+                <DataTemplate>
+                    <Frame HasShadow="True" Padding="0">
+                        <Frame.InputTransparent>
+                            <OnPlatform x:TypeArguments="x:Boolean" Android="True" iOS="False"/>
+                        </Frame.InputTransparent>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="60" />
+                            </Grid.ColumnDefinitions>
+                            <Label x:Name="textLabel" Text="{Binding Name}" Grid.Column="0" FontSize="15" TextColor="#333333" VerticalOptions="Center" HorizontalOptions="Start" Margin="5,0,0,0" />
+
+                            <BoxView Grid.Column="0" Margin="5,3,0,0" BackgroundColor="#333333" HeightRequest="1" WidthRequest="{Binding Source={x:Reference textLabel}, Path=Width}"
+                       VerticalOptions="Center" HorizontalOptions="Start" IsVisible="{Binding IsDone}" />
+
+                            <syncfusion:DragIndicatorView Grid.Column="1" ListView="{x:Reference WorkDoneListView}" HorizontalOptions="Center" VerticalOptions="Center">
+                                <Grid Padding="10, 20, 20, 20">
+                                    <Image Source="DragIndicator.png" VerticalOptions="Center" HorizontalOptions="Center" />
+                                </Grid>
+                            </syncfusion:DragIndicatorView>
+                        </Grid>
+                    </Frame>
+                </DataTemplate>
+            </syncfusion:SfListView.ItemTemplate>
+        </syncfusion:SfListView>
+    </Grid>
+</ContentPage>
